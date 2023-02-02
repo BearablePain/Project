@@ -1,9 +1,32 @@
 import webpack from "webpack";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { BuildOptions } from "./types/config";
 
-export function buildLoaders(): webpack.RuleSetRule[] {
+const getCssLoader = (isDev: boolean) => isDev ? 'style-loader' : MiniCssExtractPlugin.loader
 
-    //Если не используем ts - нужен babel-loader
-    const typescriptLoader =      {
+//чтобы в деве были обычные названия 1)  пути до компонентаб локальное название и название 2) хэш 8 символов
+const getLocalIdentName = (isDev: boolean) => isDev ? '[path][name]__[local]' : '[hash:base64:8]'
+
+export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
+
+    const cssLoader = {
+        test: /\.s[ac]ss$/i,
+        use: [
+            getCssLoader(isDev) ,
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: {
+                        auto: (resPath: string) => resPath.includes('.module.'),
+                        localIdentName: getLocalIdentName(isDev) //генерируем имя для класса
+                    },
+                }
+            },
+            'sass-loader',
+        ]
+    }
+
+    const typescriptLoader = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
@@ -11,5 +34,6 @@ export function buildLoaders(): webpack.RuleSetRule[] {
 
     return [
         typescriptLoader,
+        cssLoader,
     ]
 }

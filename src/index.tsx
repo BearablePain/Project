@@ -1,7 +1,7 @@
 import { render } from 'react-dom'
 import React from  'React'
-import { Component } from "../component/Component";
+import App from "./App";
 render(
-    <div><Component/></div>,
+    <App/>,
     document.getElementById('root')
 )
