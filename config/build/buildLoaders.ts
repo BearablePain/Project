@@ -4,7 +4,7 @@ import { BuildOptions } from "./types/config";
 
 const getCssLoader = (isDev: boolean) => isDev ? 'style-loader' : MiniCssExtractPlugin.loader
 
-//чтобы в деве были обычные названия 1)  пути до компонентаб локальное название и название 2) хэш 8 символов
+//чтобы в деве были обычные названия 1)  пути до компонента, локальное название 2) хэш 8 символов
 const getLocalIdentName = (isDev: boolean) => isDev ? '[path][name]__[local]' : '[hash:base64:8]'
 
 export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
