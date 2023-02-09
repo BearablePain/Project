@@ -1,3 +1,3 @@
-import { Navbar } from "widjets/Navbar/ui/Navbar";
+import { Navbar } from 'widjets/Navbar/ui/Navbar';
 
-export { Navbar }
+export { Navbar };

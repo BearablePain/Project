@@ -6,5 +6,6 @@ export function  buildDev(options: BuildOptions): DevServerConfiguration {
         port: options.port,
         open: true,
         historyApiFallback: true, //флаг для сингалпейджикашион
+        hot: true,
     }
 }
