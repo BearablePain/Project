@@ -16,7 +16,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
             path: paths.build,
             clean: true
         },
-        plugins: buildPlugins(options),
+        plugins: buildPlugins(options, isDev),
         module: {
             rules: buildLoaders(options),
         },
