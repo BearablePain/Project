@@ -13,6 +13,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const TEXT = {
     MAIN: t('Главная', { ns: 'main' }),
     ABOUT: t('О сайте', { ns: 'main' }),
+    A: 'Ассы',
   };
 
   return (

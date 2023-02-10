@@ -2,7 +2,6 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ThemeButton } from 'shared/ui/Button/Button';
-import cls from './LangSwitcher.module.scss';
 
 const LANGUAGE_TOGGLE_MAP = {
   ru: 'en',
@@ -23,11 +22,12 @@ export const LangSwitcher: FC<LangSwitcherProps> = (props) => {
 
   return (
     <Button
-      className={classNames(cls.LangSwitcher, {}, [className])}
+      className={classNames('', {}, [className])}
       onClick={toggle}
       theme={ThemeButton.CLEAR}
     >
       {t('Язык')}
+
     </Button>
   );
 };
