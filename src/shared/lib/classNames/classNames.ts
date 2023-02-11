@@ -9,7 +9,6 @@ export function classNames(style: string, mods: Mods = {}, additional: string[] 
         acc.push(className);
       } return acc;
     }, []),
-
   ]
     .join(' ');
 }
