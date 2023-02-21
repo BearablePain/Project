@@ -6,7 +6,6 @@ import style from './Navbar.module.scss';
 interface NavbarProps {
   className?: string;
 }
-const a = { ns: 'app' };
 export const Navbar = ({ className }: NavbarProps) => {
   const { t } = useTranslation('main');
 

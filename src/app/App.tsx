@@ -5,8 +5,6 @@ import { useTheme } from 'app/providers/ThemeProvider';
 import { AppRouter } from 'app/providers/router';
 import { Navbar } from 'widjets/Navbar';
 import { Sidebar } from 'widjets/Sidebar';
-import { useTranslation } from 'react-i18next';
-import { Button, ThemeButton } from 'shared/ui/Button/Button';
 
 const App = () => {
   const { theme } = useTheme();
