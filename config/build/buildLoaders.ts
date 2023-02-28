@@ -3,7 +3,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BuildOptions } from './types/config';
 import { buildCssLoader } from './loaders/buildCssLoader';
 
-
 // чтобы в деве были обычные названия 1)  пути до компонента, локальное название 2) хэш 8 символов
 
 export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
