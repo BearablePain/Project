@@ -21,7 +21,7 @@ module.exports = {
     'react/jsx-filename-extension': [2, {
       extensions: ['.js', '.jsx', '.tsx']
     }],
-    "eslint/linebreak-style": ["error", "windows"],
+    "linebreak-style": 0,
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'no-unused-vars': 'warn',
