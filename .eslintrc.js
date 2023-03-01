@@ -2,16 +2,16 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    jest: true
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb', 'plugin:i18next/recommended', 'plugin:storybook/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'i18next'],
   rules: {
@@ -19,9 +19,9 @@ module.exports = {
     'react/jsx-indent-props': [2, 2],
     indent: [2, 2],
     'react/jsx-filename-extension': [2, {
-      extensions: ['.js', '.jsx', '.tsx']
+      extensions: ['.js', '.jsx', '.tsx'],
     }],
-    "linebreak-style": 0,
+    'linebreak-style': 0,
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'no-unused-vars': 'warn',
@@ -35,22 +35,22 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'i18next/no-literal-string': ['error', {
       markupOnly: true,
-      ignoreAttribute: ['data-testid', 'to'] // игнорируем атрибуты для дивов
+      ignoreAttribute: ['data-testid', 'to'], // игнорируем атрибуты для дивов
     }],
 
     'max-len': ['error', {
       ignoreComments: true,
-      code: 150
-    }]
+      code: 150,
+    }],
   },
   overrides: [{
     files: ['**/src/**/*.test.{ts,tsx}'],
     rules: {
-      'i18next/no-literal-string': 'off'
-    }
+      'i18next/no-literal-string': 'off',
+    },
   }],
   // переопределим правила для конкретных файлов по регулярке
   globals: {
-    __IS_DEV__: true
-  }
+    __IS_DEV__: true,
+  },
 };
