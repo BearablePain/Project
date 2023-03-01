@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ThemeButton } from 'shared/ui/Button/Button';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 
 const LANGUAGE_TOGGLE_MAP = {
   ru: 'en',
@@ -10,9 +10,10 @@ const LANGUAGE_TOGGLE_MAP = {
 
 interface LangSwitcherProps {
   className?: string;
+  short: boolean;
 }
 export const LangSwitcher: FC<LangSwitcherProps> = (props) => {
-  const { className } = props;
+  const { className, short } = props;
   const { t, i18n } = useTranslation();
 
   type LANGUAGE = keyof typeof LANGUAGE_TOGGLE_MAP;
@@ -24,9 +25,9 @@ export const LangSwitcher: FC<LangSwitcherProps> = (props) => {
     <Button
       className={classNames('', {}, [className])}
       onClick={toggle}
-      theme={ThemeButton.CLEAR}
+      theme={ButtonTheme.CLEAR}
     >
-      {t('Язык')}
+      {short ? t('Короткий язык') : t('Язык')}
 
     </Button>
   );
