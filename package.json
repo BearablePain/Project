@@ -32,6 +32,13 @@
   },
   "homepage": "https://github.com/utimur/production_project_code_source#readme",
   "devDependencies": {
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -97,17 +104,15 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.15.5",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.2.1",
+    "storybook": "^6.5.16"
   },
   "loki": {
-    "looks-same": {
-      "ignoreCaret": true
-    },
     "configurations": {
       "chrome.laptop": {
         "target": "chrome.app",
         "width": 1366,
-        "height": 768,
+        "height": 768
       },
       "chrome.iphone7": {
         "target": "chrome.app",
