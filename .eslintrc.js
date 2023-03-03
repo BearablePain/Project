@@ -45,6 +45,7 @@ module.exports = {
       ignoreComments: true,
       code: 150,
     }],
+    'no-param-reassign': 'off',
   },
   overrides: [
     {
