@@ -10,7 +10,6 @@ import 'app/styles/index.scss';
 
 render(
   <StoreProvider>
-
     <BrowserRouter>
       <ErrorBoundary>
         <ThemeProvider>
