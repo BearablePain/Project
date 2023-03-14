@@ -7,9 +7,19 @@ const useModalHandlers = (initialOpen?: boolean) => {
     setIsOpenModal((prev) => !prev);
   }, []);
 
+  const onCloseModal = useCallback(() => {
+    setIsOpenModal(false);
+  }, []);
+
+  const onOpenModal = useCallback(() => {
+    setIsOpenModal(true);
+  }, []);
+
   return {
     onToggleModal,
     isOpenModal,
+    onOpenModal,
+    onCloseModal,
   };
 };
 
