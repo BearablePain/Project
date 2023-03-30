@@ -37,7 +37,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
     'i18next/no-literal-string': ['error', {
       markupOnly: true,
-      ignoreAttribute: ['data-testid', 'to'], // игнорируем атрибуты для дивов
+      ignoreAttribute: ['data-testid', 'to', 'name', 'component'], // игнорируем атрибуты для дивов
     },
     ],
 

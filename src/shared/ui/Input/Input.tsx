@@ -7,9 +7,10 @@ import cls from './Input.module.scss';
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
-interface InputProps extends HTMLInputProps {
+export interface InputProps extends HTMLInputProps {
   className?: string;
   value?: string;
+  // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
   autofocus?: boolean;
 }

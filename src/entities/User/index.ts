@@ -1,2 +1,10 @@
-export { IUserSchema, IUser } from 'entities/User/model/types/user';
-export { userReducer, userActions } from 'entities/User/model/slice/userSlice';
+export { getUserAuthData } from './model/selectors/getUserAuthData';
+
+export {
+  userReducer,
+  userActions,
+} from './model/slice/userSlice';
+export {
+  IUserSchema,
+  IUser,
+} from './model/types/user';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Button, ButtonSize, ButtonTheme } from './Button';
 
 export default {
@@ -23,6 +22,13 @@ export const Clear = Template.bind({});
 Clear.args = {
   children: 'Text',
   theme: ButtonTheme.CLEAR,
+};
+
+export const Disabled = Template.bind({});
+Primary.args = {
+  theme: ButtonTheme.OUTLINE,
+  children: 'Text',
+  disabled: true,
 };
 
 export const Outline = Template.bind({});
