@@ -5,6 +5,7 @@ import Input, { InputProps } from '../Input/Input';
 interface InputFormProps extends InputProps {
   name: string;
   label?: string;
+  // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
 value?: string
 }
@@ -29,7 +30,7 @@ const InputForm: FC<InputFormProps> = ({
       {label && <label htmlFor={inputProps.id || name}>{label}</label>}
       <Input
         name={name}
-        value={value ?? values[name]}
+        value={value || values[name]}
         onChange={handleChangeWithFormik}
         {...inputProps}
       />

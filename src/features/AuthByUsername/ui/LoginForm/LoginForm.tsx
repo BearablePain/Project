@@ -1,39 +1,49 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { FC, memo, useCallback } from 'react';
+import {
+  FC, memo, useCallback,
+} from 'react';
 import InputForm from 'shared/ui/InputForm/InputForm';
 import { LoginFormModel } from 'features/AuthByUsername/model/types/LoginFormModel';
-import { getLoginState } from 'features/AuthByUsername/model/selectors/getLoginState';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-import { loginActions } from '../../model/slice/loginSlice';
+import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
+import { ReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
+import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
+import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
+import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import cls from './LoginForm.module.scss';
+import { loginActions, loginReducer } from '../../model/slice/loginSlice';
+
+const initialReducers: ReducerList = { loginForm: loginReducer };
 
 export interface ILoginFormValues {
  username?: string ;
  password?: string;
 }
 
-interface LoginFormProps {
+export interface LoginFormProps {
   className?: string;
 }
 
-export const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps) => {
-  const { t } = useTranslation();
+const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps) => {
+  const t = useTAddNs('loginForm');
   const dispatch = useDispatch();
-  const {
-    username, password, error, isLoading,
-  } = useSelector(getLoginState);
+  const username = useSelector(getLoginUsername);
+  const password = useSelector(getLoginPassword);
+  const isLoading = useSelector(getLoginIsLoading);
+  const error = useSelector(getLoginError);
+
+  useDynamicReducerLoader({ reducers: initialReducers });
+
   const onChangeUserName = useCallback((value: string) => { dispatch(loginActions.setUsername(value)); }, [dispatch]);
   const onChangePassword = useCallback((value: string) => { dispatch(loginActions.setPassword(value)); }, [dispatch]);
   const onLoginClick = useCallback(() => {
     dispatch(loginByUsername({ username, password }));
   }, [dispatch, password, username]);
-
-  const tLoginForm = (text: string) => t(text, { ns: 'loginForm' });
 
   return (
     <div className={classNames(cls.LoginForm, {}, [className])}>
@@ -44,23 +54,23 @@ export const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <Text title={tLoginForm('Форма авторизации')} />
-            {error && <Text text={tLoginForm('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
+            <Text title={t('Форма авторизации')} />
+            {error && <Text text={t('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
             <InputForm
               name="username"
-              placeholder={tLoginForm('Введите username')}
+              placeholder={t('Введите username')}
               onChange={onChangeUserName}
               value={username}
             />
             <InputForm
               name="password"
               type="password"
-              placeholder={tLoginForm('Введите пароль')}
+              placeholder={t('Введите пароль')}
               onChange={onChangePassword}
               value={password}
             />
             <Button theme={ButtonTheme.OUTLINE} className={cls.loginBtn} type="submit" disabled={isLoading}>
-              {tLoginForm('Войти')}
+              {t('Войти')}
             </Button>
           </Form>
         )}
@@ -68,3 +78,5 @@ export const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps
     </div>
   );
 });
+
+export default LoginForm;
