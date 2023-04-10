@@ -1,5 +1,5 @@
 import { ErrorMessage, useFormikContext } from 'formik';
-import React, { FC, useCallback } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import Input, { InputProps } from '../Input/Input';
 
 interface InputFormProps extends InputProps {
@@ -10,12 +10,12 @@ interface InputFormProps extends InputProps {
 value?: string
 }
 
-const InputForm: FC<InputFormProps> = ({
+const InputForm: FC<InputFormProps> = memo(({
   name,
   label,
   onChange, value,
   ...inputProps
-}) => {
+}: InputFormProps) => {
   const {
     values, setFieldValue,
   } = useFormikContext<any>();
@@ -37,6 +37,6 @@ const InputForm: FC<InputFormProps> = ({
       <ErrorMessage name={name} component="div" className="error-message" />
     </>
   );
-};
+});
 
 export default InputForm;

@@ -15,7 +15,7 @@ export interface InputProps extends HTMLInputProps {
   autofocus?: boolean;
 }
 
-const Input: FC<InputProps> = (props) => {
+const Input: FC<InputProps> = memo((props: InputProps) => {
   const {
     className,
     value,
@@ -81,6 +81,6 @@ const Input: FC<InputProps> = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default memo(Input);

@@ -11,6 +11,7 @@ import { loginByUsername } from 'features/AuthByUsername/model/services/loginByU
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
 import { ReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
@@ -27,11 +28,12 @@ export interface ILoginFormValues {
 
 export interface LoginFormProps {
   className?: string;
+  onSuccess: () => void
 }
 
-const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps) => {
+const LoginForm: FC<LoginFormProps> = memo(({ className, onSuccess }: LoginFormProps) => {
   const t = useTAddNs('loginForm');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const username = useSelector(getLoginUsername);
   const password = useSelector(getLoginPassword);
   const isLoading = useSelector(getLoginIsLoading);
@@ -41,9 +43,12 @@ const LoginForm: FC<LoginFormProps> = memo(({ className }: LoginFormProps) => {
 
   const onChangeUserName = useCallback((value: string) => { dispatch(loginActions.setUsername(value)); }, [dispatch]);
   const onChangePassword = useCallback((value: string) => { dispatch(loginActions.setPassword(value)); }, [dispatch]);
-  const onLoginClick = useCallback(() => {
-    dispatch(loginByUsername({ username, password }));
-  }, [dispatch, password, username]);
+  const onLoginClick = useCallback(async () => {
+    const result = await dispatch(loginByUsername({ username, password }));
+    if (result.meta.requestStatus === 'fulfilled') {
+      onSuccess();
+    }
+  }, [dispatch, onSuccess, password, username]);
 
   return (
     <div className={classNames(cls.LoginForm, {}, [className])}>

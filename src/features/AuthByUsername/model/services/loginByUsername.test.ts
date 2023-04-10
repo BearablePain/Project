@@ -11,7 +11,7 @@ const mockedAxios = jest.mocked(axios, true);
 const mockUserValue1: Required<ILoginFormValues> = { username: '123', password: '123' };
 describe('loginByUsername.test', () => {
   // let dispatch: Dispatch;
-  // let getState: () => StateSchema;
+  // let getState: () => IStateSchema;
   //
   // beforeEach(() => {
   //     dispatch = jest.fn();
