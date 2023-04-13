@@ -15,8 +15,10 @@ export default {
   // cacheDirectory: "C:\\Users\\Стас\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances and results before every test
-  globals: { __IS_DEV__: true },
-
+  globals: {
+    __IS_DEV__: true,
+    __API__: '',
+  },
   clearMocks: true,
   testEnvironment: 'jsdom',
   coveragePathIgnorePatterns: [
