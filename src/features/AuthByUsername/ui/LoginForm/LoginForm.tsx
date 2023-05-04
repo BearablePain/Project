@@ -1,16 +1,14 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  FC, memo, useCallback,
-} from 'react';
+import { Form, Formik } from 'formik';
+import { useSelector } from 'react-redux';
+import { FC, memo, useCallback } from 'react';
 import InputForm from 'shared/ui/InputForm/InputForm';
 import { LoginFormModel } from 'features/AuthByUsername/model/types/LoginFormModel';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
-import { ReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
+import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
@@ -19,19 +17,22 @@ import { getLoginError } from '../../model/selectors/getLoginError/getLoginError
 import cls from './LoginForm.module.scss';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 
-const initialReducers: ReducerList = { loginForm: loginReducer };
+const initialReducers: TReducerList = { loginForm: loginReducer };
 
 export interface ILoginFormValues {
- username?: string ;
- password?: string;
+  username?: string;
+  password?: string;
 }
 
 export interface LoginFormProps {
   className?: string;
-  onSuccess: () => void
+  onSuccess: () => void;
 }
 
-const LoginForm: FC<LoginFormProps> = memo(({ className, onSuccess }: LoginFormProps) => {
+const LoginForm: FC<LoginFormProps> = memo(({
+  className,
+  onSuccess,
+}: LoginFormProps) => {
   const t = useTAddNs('loginForm');
   const dispatch = useAppDispatch();
   const username = useSelector(getLoginUsername);
@@ -41,10 +42,17 @@ const LoginForm: FC<LoginFormProps> = memo(({ className, onSuccess }: LoginFormP
 
   useDynamicReducerLoader({ reducers: initialReducers });
 
-  const onChangeUserName = useCallback((value: string) => { dispatch(loginActions.setUsername(value)); }, [dispatch]);
-  const onChangePassword = useCallback((value: string) => { dispatch(loginActions.setPassword(value)); }, [dispatch]);
+  const onChangeUserName = useCallback((value: string) => {
+    dispatch(loginActions.setUsername(value));
+  }, [dispatch]);
+  const onChangePassword = useCallback((value: string) => {
+    dispatch(loginActions.setPassword(value));
+  }, [dispatch]);
   const onLoginClick = useCallback(async () => {
-    const result = await dispatch(loginByUsername({ username, password }));
+    const result = await dispatch(loginByUsername({
+      username,
+      password,
+    }));
     if (result.meta.requestStatus === 'fulfilled') {
       onSuccess();
     }

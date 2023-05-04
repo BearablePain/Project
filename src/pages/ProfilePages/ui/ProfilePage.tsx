@@ -2,15 +2,16 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { FC, memo, useEffect } from 'react';
 import { fetchProfileData, ProfileCard, profileReducer } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { ReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
+import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 
-const reducers: ReducerList = {
+const reducers: TReducerList = {
   profile: profileReducer,
 };
 
 interface ProfilePagesProps {
-    className?: string;
+  className?: string;
 }
+
 const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
   const { className } = props;
   const dispatch = useAppDispatch();
@@ -19,7 +20,10 @@ const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
     dispatch(fetchProfileData());
   }, [dispatch]);
 
-  useDynamicReducerLoader({ reducers, removeAfterUnmount: true });
+  useDynamicReducerLoader({
+    reducers,
+    removeAfterUnmount: true,
+  });
 
   return (
     <div className={classNames('', {}, [className])}>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const useModalHandlers = (initialOpen?: boolean) => {
+const useModalHandlers = (initialOpen: boolean = false) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(initialOpen);
 
   const onToggleModal = useCallback(() => {

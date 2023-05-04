@@ -1,4 +1,4 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames, TMods } from 'shared/lib/classNames/classNames';
 import {
   ButtonHTMLAttributes, FC, memo, ReactNode,
 } from 'react';
@@ -18,22 +18,28 @@ export enum ButtonSize {
   XL = 'size_xl',
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   theme?: ButtonTheme;
   square?: boolean;
   size?: ButtonSize;
-  disabled?: boolean
-  children?: ReactNode
+  disabled?: boolean;
+  children?: ReactNode;
 }
 
 export const Button: FC<ButtonProps> = memo((props: ButtonProps) => {
   const {
-    className, children, theme, square, size = ButtonSize.M, disabled, ...otherProps
+    className,
+    children,
+    theme,
+    square,
+    size = ButtonSize.M,
+    disabled,
+    ...otherProps
   } = props;
-
-  const mods: Record<string, boolean> = {
-    [cls[theme]]: true,
+  const themeStyleName = theme ? cls?.[theme] : '';
+  const mods: TMods = {
+    [themeStyleName]: true,
     [cls.square]: square,
     [cls[size]]: true,
     [cls.disabled]: disabled,

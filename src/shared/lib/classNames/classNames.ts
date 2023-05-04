@@ -1,14 +1,16 @@
-type Mods = Record<string, boolean | string>
+export type TMods = Record<string, boolean | string | undefined>
 
-export function classNames(style: string, mods: Mods = {}, additional: string[] = []): string {
+export function classNames(style: string, mods: TMods = {}, additional: (string | undefined)[] = []): string {
   return [
     style,
-    ...additional,
-    ...Object.entries(mods).reduce((acc: string[], [className, value]) => {
-      if (value) {
-        acc.push(className);
-      } return acc;
-    }, []),
+    ...additional.filter(Boolean),
+    ...Object.entries(mods)
+      .reduce((acc: string[], [className, value]) => {
+        if (value) {
+          acc.push(className);
+        }
+        return acc;
+      }, []),
   ]
     .join(' ');
 }

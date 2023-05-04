@@ -13,8 +13,9 @@ export interface IStateSchema {
   user: IUserSchema;
   // Асинхронные редюсеры
   loginForm?: ILoginSchema;
-  profile?: IProfileSchema
+  profile?: IProfileSchema;
 }
+
 export type StateSchemaKey = keyof IStateSchema;
 
 export interface IReducerManager {
@@ -39,4 +40,5 @@ export interface IThunkExtraArg {
 export interface IThunkConfig<T> {
   rejectValue: T;
   extra: IThunkExtraArg;
+  state: IStateSchema;
 }

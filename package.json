@@ -117,7 +117,7 @@
     "react-i18next": "^11.15.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
-    "storybook": "^1.0.0",
+    "storybook": "^7.0.8",
     "yup": "^1.0.2"
   },
   "loki": {

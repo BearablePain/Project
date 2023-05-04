@@ -7,17 +7,19 @@ interface InputFormProps extends InputProps {
   label?: string;
   // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
-value?: string
+  value?: string;
 }
 
 const InputForm: FC<InputFormProps> = memo(({
   name,
   label,
-  onChange, value,
+  onChange,
+  value,
   ...inputProps
 }: InputFormProps) => {
   const {
-    values, setFieldValue,
+    values,
+    setFieldValue,
   } = useFormikContext<any>();
 
   const handleChangeWithFormik = useCallback((value: string) => {
@@ -30,7 +32,7 @@ const InputForm: FC<InputFormProps> = memo(({
       {label && <label htmlFor={inputProps.id || name}>{label}</label>}
       <Input
         name={name}
-        value={value || values[name]}
+        value={value || values?.[name]}
         onChange={handleChangeWithFormik}
         {...inputProps}
       />
