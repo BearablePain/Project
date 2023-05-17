@@ -6,11 +6,13 @@ export {
 export {
   profileActions,
   profileReducer,
-} from './model/slice/profileSlice';
+} from '../../pages/ProfilePages/model/slice/profileSlice';
 
 export {
   fetchProfileData,
-} from './model/services/fetchProfileData/fetchProfileData';
+} from '../../pages/ProfilePages/model/services/fetchProfileData/fetchProfileData';
+
+export { updateProfileData } from 'pages/ProfilePages/model/services/updateProfileData/updateProfileData';
 
 export {
   ProfileCard,

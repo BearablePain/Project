@@ -7,7 +7,8 @@ interface InputFormProps extends InputProps {
   label?: string;
   // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
-  value?: string;
+  value?: string | number;
+  readonly?: boolean;
 }
 
 const InputForm: FC<InputFormProps> = memo(({
@@ -15,6 +16,7 @@ const InputForm: FC<InputFormProps> = memo(({
   label,
   onChange,
   value,
+  readonly,
   ...inputProps
 }: InputFormProps) => {
   const {
@@ -35,6 +37,7 @@ const InputForm: FC<InputFormProps> = memo(({
         value={value || values?.[name]}
         onChange={handleChangeWithFormik}
         {...inputProps}
+        readonly={readonly}
       />
       <ErrorMessage name={name} component="div" className="error-message" />
     </>

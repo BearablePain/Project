@@ -39,6 +39,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
     'no-undef': 'off',
+    'no-console': 'off',
     'i18next/no-literal-string': ['error', {
       markupOnly: true,
       ignoreAttribute: ['data-testid', 'to', 'name', 'component'], // игнорируем атрибуты для дивов

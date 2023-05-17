@@ -1,48 +1,116 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useSelector } from 'react-redux';
-import { getProfileData } from 'entities/Profile/model/selectors/getProfileData/getProfileData';
-import { Text } from 'shared/ui/Text/Text';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
+import { IProfile } from 'entities/Profile';
+import { Loader } from 'shared/ui/Loader/Loader';
+import InputForm from 'shared/ui/InputForm/InputForm';
+import { Form } from 'formik';
+import { useProfileFormHandlers } from 'entities/Profile/model/hooks/useProfileFormHandlers/useProfileFormHandlers';
 import cls from './ProfileCard.module.scss';
 
 interface ProfileCardProps {
+  profileFormData?: IProfile;
+  isLoading?: boolean;
+  error?: string;
   className?: string;
+  readonly?: boolean;
 }
 
-export const ProfileCard = ({ className }: ProfileCardProps) => {
+export const ProfileCard = (props: ProfileCardProps) => {
   const t = useTAddNs('profile');
-  const data = useSelector(getProfileData);
-  // const isLoading = useSelector(getProfileIsLoading);
-  // const error = useSelector(getProfileError);
+  const {
+    isLoading,
+    error,
+    className,
+    readonly,
+    profileFormData,
+  } = props;
+
+  // const {
+  // values,
+  // } = useFormikContext<IProfile>();
+
+  const {
+    onChangeFirst,
+    onChangeLastname,
+    onChangeCity,
+    onChangeAge,
+    onChangeUsername,
+    onChangeAvatar,
+  } = useProfileFormHandlers();
+
+  if (isLoading) {
+    return (
+      <div className={classNames(cls.ProfileCard, {}, [className, cls.loading])}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={classNames(cls.ProfileCard, {}, [className, cls.error])}>
+        <Text
+          theme={TextTheme.ERROR}
+          align={TextAlign.CENTER}
+          title={t('Произошла ошибка при загрузке профиля')}
+          text={t('Попробуйте обновить страницу')}
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className={classNames(cls.ProfileCard, {}, [className])}>
-      <div className={cls.header}>
-        <Text title={t('Профиль')} />
-        <Button
-          className={cls.editBtn}
-          theme={ButtonTheme.OUTLINE}
-        >
-          {t('Редактировать')}
-        </Button>
-      </div>
-      <div className={cls.data}>
-        {/*    <InputForm
-          name="first"
-          label={t('Имя')}
-          value={data?.first}
-          placeholder={t('Ваше имя')}
-          className={cls.input}
-        />
-        <InputForm
-          label={t('Фамилия')}
-          name="lastname"
-          value={data?.lastname}
-          placeholder={t('Ваша фамилия')}
-          className={cls.input}
-        /> */}
-      </div>
-    </div>
+    <Form className={classNames(cls.ProfileCard, {}, [className])}>
+      <InputForm
+        name="first"
+        value={profileFormData?.first}
+        placeholder={t('Ваше имя')}
+        className={cls.input}
+        readonly={readonly}
+        onChange={onChangeFirst}
+
+      />
+      <InputForm
+        name="lastname"
+        value={profileFormData?.lastname}
+        placeholder={t('Ваша фамилия')}
+        className={cls.input}
+        readonly={readonly}
+        onChange={onChangeLastname}
+      />
+      <InputForm
+        name="age"
+        value={profileFormData?.age}
+        placeholder={t('Ваш возраст')}
+        className={cls.input}
+        onChange={onChangeAge}
+        readonly={readonly}
+      />
+      <InputForm
+        name="city"
+        value={profileFormData?.city}
+        placeholder={t('Город')}
+        className={cls.input}
+        onChange={onChangeCity}
+        readonly={readonly}
+      />
+      <InputForm
+        name="username"
+        value={profileFormData?.username}
+        placeholder={t('Введите имя пользователя')}
+        className={cls.input}
+        onChange={onChangeUsername}
+        readonly={readonly}
+      />
+      <InputForm
+        name="avatar"
+        value={profileFormData?.avatar}
+        placeholder={t('Введите ссылку на аватар')}
+        className={cls.input}
+        onChange={onChangeAvatar}
+        readonly={readonly}
+      />
+    </Form>
   );
 };
