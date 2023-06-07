@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 import { tLocalize } from 'shared/lib/i18/tLocalize';
 import { IProfile } from 'entities/Profile';
-import { Country, Currency } from 'shared/const/common';
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency/model/types/currency';
 
 export class ProfileFormModel implements Partial<IProfile> {
   first?: string;
