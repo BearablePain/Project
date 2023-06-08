@@ -35,8 +35,9 @@ export class ProfileFormModel implements Partial<IProfile> {
   static validationSchema = Yup.object()
     .shape({
       first: Yup.string()
-        .required(tLocalize('Обязательное поле')),
+        .required(tLocalize('Имя обязательное поле')),
       lastname: Yup.string()
-        .required(tLocalize('Password is required')),
+        .required(tLocalize('Фамилия обязательное поле')),
+      age: Yup.string(),
     });
 }

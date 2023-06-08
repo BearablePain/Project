@@ -29,10 +29,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
     profileFormData,
   } = props;
 
-  // const {
-  // values,
-  // } = useFormikContext<IProfile>();
-
   const {
     onChangeFirst,
     onChangeLastname,

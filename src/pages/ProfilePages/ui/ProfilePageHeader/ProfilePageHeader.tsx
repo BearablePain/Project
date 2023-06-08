@@ -22,13 +22,15 @@ export const ProfilePageHeader: FC<ProfilePageHeaderProps> = (props) => {
   const dispatch = useAppDispatch();
   const {
     handleSubmit,
+    resetForm,
   } = useFormikContext<IProfile>();
   const onEdit = useCallback(() => {
     dispatch(profileActions.setReadonly(false));
   }, [dispatch]);
   const onCancelEdit = useCallback(() => {
     dispatch(profileActions.setReadonly(true));
-  }, [dispatch]);
+    resetForm();
+  }, [dispatch, resetForm]);
   return (
     <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
       <Text title={t('Профиль')} />

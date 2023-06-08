@@ -1,6 +1,7 @@
-import { ErrorMessage, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import React, { FC, memo, useCallback } from 'react';
 import { Select, SelectProps } from 'shared/ui/Select/Select';
+import { ErrorFormMessage } from 'shared/ui/ErrorFormMessage/ErrorFormMessage';
 
 interface SelectFormProps extends SelectProps {
   name: string;
@@ -44,7 +45,7 @@ const SelectForm: FC<SelectFormProps> = memo(({
         readonly={readonly}
         placeholder={placeholder}
       />
-      <ErrorMessage name={name} component="div" className="error-message" />
+      <ErrorFormMessage name={name} component="div" />
     </>
   );
 });

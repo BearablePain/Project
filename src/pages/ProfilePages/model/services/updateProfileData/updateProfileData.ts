@@ -22,7 +22,7 @@ export const updateProfileData = createAsyncThunk<IProfile,
         return response.data;
       } catch (e) {
         console.log(e);
-        return rejectWithValue('error');
+        return rejectWithValue('SERVER_ERROR');
       }
     },
   );

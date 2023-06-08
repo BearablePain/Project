@@ -1,5 +1,6 @@
-import { ErrorMessage, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import React, { FC, memo, useCallback } from 'react';
+import { ErrorFormMessage } from 'shared/ui/ErrorFormMessage/ErrorFormMessage';
 import Input, { InputProps } from '../Input/Input';
 
 interface InputFormProps extends InputProps {
@@ -39,7 +40,7 @@ const InputForm: FC<InputFormProps> = memo(({
         {...inputProps}
         readonly={readonly}
       />
-      <ErrorMessage name={name} component="div" className="error-message" />
+      <ErrorFormMessage name={name} component="div" />
     </>
   );
 });
