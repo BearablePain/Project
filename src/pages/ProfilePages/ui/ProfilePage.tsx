@@ -15,6 +15,7 @@ import { getProfileFormReadonly } from 'pages/ProfilePages/model/selectors/getPr
 import { getProfileData, getProfileForm } from 'pages/ProfilePages';
 import { ProfileFormModel } from 'entities/Profile/model/types/ProfileFormModel';
 import { Formik } from 'formik';
+import { PROJECT } from 'shared/const/global';
 
 const reducers: TReducerList = {
   profile: profileReducer,
@@ -28,14 +29,15 @@ const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
   const { className } = props;
   const dispatch = useAppDispatch();
   const formData = useSelector(getProfileForm);
-
   const profileFormData = useSelector(getProfileData);
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileFormReadonly);
 
   useEffect(() => {
-    dispatch(fetchProfileData());
+    if (__PROJECT__ !== PROJECT.storybook) {
+      dispatch(fetchProfileData());
+    }
   }, [dispatch]);
 
   useDynamicReducerLoader({
@@ -60,9 +62,7 @@ const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
       <div className={classNames('', {}, [className])}>
         <ProfilePageHeader />
         <ProfileCard profileFormData={formData} isLoading={isLoading} error={error} readonly={readonly} />
-
       </div>
-
     </Formik>
   );
 });

@@ -3,6 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 import path from 'path';
+import { PROJECT } from '../../src/shared/const/global';
 
 export default {
   // All imported modules in your tests should be mocked automatically
@@ -18,6 +19,7 @@ export default {
   globals: {
     __IS_DEV__: true,
     __API__: '',
+    __PROJECT__: PROJECT.jest,
   },
   clearMocks: true,
   testEnvironment: 'jsdom',

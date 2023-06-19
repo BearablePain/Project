@@ -4,6 +4,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { buildWebpackConfig } from './config/build/buildWebpackConfig';
 import { BuildEnv, BuildPaths } from './config/build/types/config';
+import { PROJECT } from './src/shared/const/global';
 
 export default (env: BuildEnv) => {
   const paths: BuildPaths = {
@@ -24,6 +25,7 @@ export default (env: BuildEnv) => {
     isDev,
     port: PORT,
     apiUrl,
+    project: PROJECT.frontend,
   });
 
   return config;
