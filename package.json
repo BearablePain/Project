@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development",
+    "start:dev": "concurrently \"npm start\" \"npm run start:dev:server\"",
     "start:dev:server": "node ./json-server/index.js",
     "build": "webpack --mode production",
     "start": "webpack serve --env port=3000 mode=development",
@@ -109,6 +110,7 @@
     "@storybook/builder-webpack5": "^6.4.19",
     "@storybook/manager-webpack5": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
+    "concurrently": "^8.2.0",
     "formik": "^2.2.9",
     "i18next": "^21.6.11",
     "i18next-browser-languagedetector": "^6.1.3",

@@ -6,6 +6,8 @@ interface UseThemeResult {
   theme: Theme;
 }
 
+const defaultTheme = Theme.LIGHT;
+
 export function useTheme(): UseThemeResult {
   const {
     theme,
@@ -13,7 +15,12 @@ export function useTheme(): UseThemeResult {
   } = useContext(ThemeContext);
 
   const toggleTheme = () => {
-    const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+    const THEME_TOGGLE_MAP = {
+      [Theme.DARK]: Theme.LIGHT,
+      [Theme.LIGHT]: Theme.ORANGE,
+      [Theme.ORANGE]: Theme.DARK,
+    };
+    const newTheme = theme ? THEME_TOGGLE_MAP[theme] : defaultTheme;
     setTheme?.(newTheme);
     document.body.className = newTheme;
     localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
