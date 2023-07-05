@@ -7,6 +7,8 @@ import {
 import { IProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { NavigateOptions, To } from 'react-router-dom';
+import { IArticleDetailsSchema } from 'entities/Article';
+import { IArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 
 export interface IStateSchema {
   counter: ICounterSchema;
@@ -14,6 +16,9 @@ export interface IStateSchema {
   // Асинхронные редюсеры
   loginForm?: ILoginSchema;
   profile?: IProfileSchema;
+  articleDetails?: IArticleDetailsSchema;
+  articleDetailsComments?: IArticleDetailsCommentsSchema;
+
 }
 
 export type StateSchemaKey = keyof IStateSchema;

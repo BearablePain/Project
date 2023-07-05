@@ -7,14 +7,14 @@ export {
 export {
   profileActions,
   profileReducer,
-} from './model/slice/profileSlice';
+} from '../../entities/Profile/model/slice/profileSlice';
 
 export {
   fetchProfileData,
-} from './model/services/fetchProfileData/fetchProfileData';
+} from '../../entities/Profile/model/services/fetchProfileData/fetchProfileData';
 
-export { getProfileIsLoading } from './model/selectors/getProfileIsLoading/getProfileIsLoading';
-export { getProfileData } from './model/selectors/getProfileData/getProfileData';
-export { getProfileError } from './model/selectors/getProfileError/getProfileError';
-export { getProfileReadonly } from './model/selectors/getProfileReadonly/getProfileReadonly';
-export { getProfileForm } from './model/selectors/getProfileForm/getProfileForm';
+export { getProfileIsLoading } from '../../entities/Profile/model/selectors/getProfileIsLoading/getProfileIsLoading';
+export { getProfileData } from '../../entities/Profile/model/selectors/getProfileData/getProfileData';
+export { getProfileError } from '../../entities/Profile/model/selectors/getProfileError/getProfileError';
+export { getProfileReadonly } from '../../entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
+export { getProfileForm } from '../../entities/Profile/model/selectors/getProfileForm/getProfileForm';

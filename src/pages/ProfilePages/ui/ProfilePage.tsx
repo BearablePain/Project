@@ -8,10 +8,10 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 import { useSelector } from 'react-redux';
-import { getProfileIsLoading } from 'pages/ProfilePages/model/selectors/getProfileIsLoading/getProfileIsLoading';
-import { getProfileError } from 'pages/ProfilePages/model/selectors/getProfileError/getProfileError';
+import { getProfileIsLoading } from 'entities/Profile/model/selectors/getProfileIsLoading/getProfileIsLoading';
+import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
 import { ProfilePageHeader } from 'pages/ProfilePages/ui/ProfilePageHeader/ProfilePageHeader';
-import { getProfileFormReadonly } from 'pages/ProfilePages/model/selectors/getProfileData/getProfileFormReadonly';
+import { getProfileFormReadonly } from 'entities/Profile/model/selectors/getProfileData/getProfileFormReadonly';
 import { getProfileData, getProfileForm } from 'pages/ProfilePages';
 import { ProfileFormModel } from 'entities/Profile/model/types/ProfileFormModel';
 import { Formik } from 'formik';
