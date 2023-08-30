@@ -4,10 +4,10 @@ import { IProfile } from 'entities/Profile';
 import { getProfileForm } from 'pages/ProfilePages';
 
 export const updateProfileData = createAsyncThunk<IProfile,
-  void,
+  string,
   IThunkConfig<string>>(
     'profile/updateProfileData',
-    async (_, thunkApi) => {
+    async (profileId, thunkApi) => {
       const {
         extra,
         rejectWithValue,
@@ -17,7 +17,7 @@ export const updateProfileData = createAsyncThunk<IProfile,
       const formData = getProfileForm(getState());
 
       try {
-        const response = await extra.api.put<IProfile>('/profile', formData);
+        const response = await extra.api.put<IProfile>(`/profile/${profileId}`, formData);
         if (!response.data) {
           throw new Error();
         }

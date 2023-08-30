@@ -62,10 +62,9 @@ describe('profileSlice.test', () => {
     const state: DeepPartial<IProfileSchema> = {
       isLoading: true,
     };
-
     expect(profileReducer(
       state as IProfileSchema,
-      updateProfileData.fulfilled(profileDataMock, ''),
+      updateProfileData.fulfilled(profileDataMock, '1', ''),
     ))
       .toEqual({
         isLoading: false,

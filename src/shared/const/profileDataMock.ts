@@ -1,7 +1,9 @@
 import { Currency } from 'entities/Currency/model/types/currency';
 import { Country } from 'entities/Country';
+import { IProfile } from 'entities/Profile';
 
-export const profileDataMock = {
+export const profileDataMock: IProfile = {
+  id: '1',
   username: 'admin',
   age: 32,
   country: Country.Russia,

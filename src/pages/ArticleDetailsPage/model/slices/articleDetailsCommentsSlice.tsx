@@ -2,12 +2,12 @@ import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolki
 
 import { IComment } from 'entities/Comment';
 import { IStateSchema } from 'app/providers/StoreProvider';
-import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId';
+import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { IArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 
 const commentsAdapter = createEntityAdapter<IComment>({
   selectId: (comment) => comment.id,
-});
+}); //
 
 export const getArticleComments = commentsAdapter.getSelectors<IStateSchema>(
   (state) => state.articleDetailsComments || commentsAdapter.getInitialState(),

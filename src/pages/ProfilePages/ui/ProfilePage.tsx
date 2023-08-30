@@ -1,7 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import {
-  FC, memo, useCallback, useEffect,
-} from 'react';
+import { FC, memo, useCallback } from 'react';
 import {
   fetchProfileData, ProfileCard, profileReducer, updateProfileData,
 } from 'entities/Profile';
@@ -15,7 +13,8 @@ import { getProfileFormReadonly } from 'entities/Profile/model/selectors/getProf
 import { getProfileData, getProfileForm } from 'pages/ProfilePages';
 import { ProfileFormModel } from 'entities/Profile/model/types/ProfileFormModel';
 import { Formik } from 'formik';
-import { PROJECT } from 'shared/const/global';
+import { useParams } from 'react-router-dom';
+import { useMount } from 'shared/lib/hooks/useMount/useMount';
 
 const reducers: TReducerList = {
   profile: profileReducer,
@@ -28,17 +27,19 @@ interface ProfilePagesProps {
 const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
   const { className } = props;
   const dispatch = useAppDispatch();
+
   const formData = useSelector(getProfileForm);
   const profileFormData = useSelector(getProfileData);
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileFormReadonly);
 
-  useEffect(() => {
-    if (__PROJECT__ !== PROJECT.storybook) {
-      dispatch(fetchProfileData());
+  const { id } = useParams<{ id: string }>();
+  useMount(() => {
+    if (id) {
+      dispatch(fetchProfileData(id));
     }
-  }, [dispatch]);
+  });
 
   useDynamicReducerLoader({
     reducers,
@@ -46,8 +47,10 @@ const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
   });
 
   const onSave = useCallback(() => {
-    dispatch(updateProfileData());
-  }, [dispatch]);
+    if (id) {
+      dispatch(updateProfileData(id));
+    }
+  }, [dispatch, id]);
 
   return (
     <Formik
