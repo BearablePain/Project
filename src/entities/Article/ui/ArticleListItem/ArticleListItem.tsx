@@ -70,7 +70,6 @@ export const ArticleListItem: FC<ArticleListItemProps> = (props) => {
             {views}
           </div>
         </Card>
-
       </div>
     ),
     [ArticleView.SMALL]:
