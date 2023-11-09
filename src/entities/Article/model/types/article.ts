@@ -1,6 +1,11 @@
 import { IUser } from 'entities/User';
 
-export enum ArticleBlockType {
+export const enum ArticleView {
+  BIG = 'BIG',
+  SMALL = 'SMALL',
+}
+
+export const enum ArticleBlockType {
   CODE = 'CODE',
   IMAGE = 'IMAGE',
   TEXT = 'TEXT',
@@ -30,15 +35,10 @@ export interface IArticleTextBlock extends IArticleBlockBase {
 
 export type ArticleBlock = IArticleCodeBlock | IArticleImageBlock | IArticleTextBlock;
 
-export enum ArticleType {
+export const enum ArticleType {
   IT = 'IT',
   SCIENCE = 'SCIENCE',
   ECONOMICS = 'ECONOMICS'
-}
-
-export enum ArticleView {
-  BIG = 'BIG',
-  SMALL = 'SMALL',
 }
 
 export interface IArticle {
