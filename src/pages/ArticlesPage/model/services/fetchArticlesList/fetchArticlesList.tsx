@@ -1,22 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IThunkConfig } from 'app/providers/StoreProvider';
 import { IArticle } from 'entities/Article';
+import { IBaseListPaginationProps } from 'shared/types/IBaseListPaginationProps';
+import { getArticlesPageLimit, getArticlesPageView } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
+
+interface IFetchArticleListProps extends IBaseListPaginationProps {
+}
 
 export const fetchArticlesList = createAsyncThunk<IArticle[],
-  void,
+  IFetchArticleListProps,
   IThunkConfig<string>>(
     'articlesPage/fetchArticlesList',
-    async (articleId, thunkApi) => {
+    async (props, thunkApi) => {
       const {
         extra,
         rejectWithValue,
+        getState,
       } = thunkApi;
-
+      const { page = 1 } = props;
+      const limit = getArticlesPageLimit(getState());
+      console.log(getArticlesPageView(getState()), 'getArticlesPageView(getState())getArticlesPageView(getState())getArticlesPageView(getState())');
       try {
+        const params = {
+          _expand: 'user',
+          _limit: limit,
+          _page: page,
+        };
         const response = await extra.api.get<IArticle[]>('/articles', {
-          params: {
-            _expand: 'user',
-          },
+          params,
         });
 
         if (!response.data) {

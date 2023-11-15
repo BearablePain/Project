@@ -12,7 +12,6 @@ export const ErrorFormMessage: FC<ErrorFormMessageProps> = (props) => {
   const {
     className,
   } = props;
-  console.log(cls.errorMessage);
   return (
     <ErrorMessage
       className={classNames('error-message', {}, [className, cls.errorMessage])}

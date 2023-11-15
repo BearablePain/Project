@@ -22,7 +22,6 @@ const SelectForm: FC<SelectFormProps> = memo(({
   classNameLabel,
   placeholder,
 }: SelectFormProps) => {
-  console.log(label, 'label');
   const {
     values,
     setFieldValue,

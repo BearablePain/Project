@@ -12,6 +12,7 @@ import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import AddCommentForm from 'features/addCommentForm/ui/AddCommentForm';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
 import { getArticleCommentsIsLoading } from 'pages/ArticleDetailsPage/model/selectors/articleDetailComments';
+import { Page } from 'shared/ui/Page/Page';
 import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle';
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import cls from './ArticleDetailsPage.module.scss';
@@ -52,14 +53,14 @@ const ArticleDetailsPage: FC<IArticleDetailsPageProps> = (props) => {
 
   if (!id) {
     return (
-      <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+      <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
         {t('Статья не найдена')}
-      </div>
+      </Page>
     );
   }
 
   return (
-    <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+    <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
       <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
         {t('Назад к списку')}
       </Button>
@@ -67,7 +68,7 @@ const ArticleDetailsPage: FC<IArticleDetailsPageProps> = (props) => {
       <Text title={t('Комментарии')} className={cls.commentTitle} />
       <AddCommentForm onSendComment={onSendComment} />
       <CommentList comments={comments} isLoading={commentsIsLoading} />
-    </div>
+    </Page>
   );
 };
 

@@ -68,7 +68,6 @@ export const ProfilePageHeader: FC<ProfilePageHeaderProps> = (props) => {
                   className={cls.saveBtn}
                   theme={ButtonTheme.OUTLINE}
                   onClick={() => {
-                    console.log(11);
                     handleSubmit();
                   }}
                 >

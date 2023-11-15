@@ -5,7 +5,9 @@ import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynam
 import { useDispatch, useSelector } from 'react-redux';
 import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import { getArticlesPageIsLoading, getArticlesPageView } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
+import { Page } from 'shared/ui/Page/Page';
+import { fetchNextArticlesPage } from 'pages/ArticlesPage/model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { initArticlesPage } from 'pages/ArticlesPage/model/services/initArticlesPage/initArticlesPage';
 import { articlesPageActions, articlesPageReducer, getArticles } from '../../model/slices/articlesPageSlice';
 import cls from './ArticlesPage.module.scss';
 
@@ -20,27 +22,35 @@ interface ArticlesPageProps {
 export const ArticlesPage = (props: ArticlesPageProps) => {
   const { className } = props;
   const dispatch = useDispatch();
+  useDynamicReducerLoader({ reducers });
   const articles = useSelector(getArticles.selectAll);
   const isLoading = useSelector(getArticlesPageIsLoading);
   const view = useSelector(getArticlesPageView);
   const onChangeView = useCallback((view: ArticleView) => {
     dispatch(articlesPageActions.setView(view));
   }, [dispatch]);
+  const onLoadNextPart = useCallback(() => {
+    dispatch(fetchNextArticlesPage());
+    console.log('next');
+  }, [dispatch]);
+
   useMount(() => {
-    dispatch(fetchArticlesList());
-    dispatch(articlesPageActions.initState());
+    dispatch(initArticlesPage());
   });
-  useDynamicReducerLoader({ reducers });
 
   return (
-    <div className={classNames(cls.ArticlesPage, {}, [className])}>
+    <Page
+      onScrollEnd={onLoadNextPart}
+      className={classNames(cls.ArticlesPage, {}, [className])}
+    >
       <ArticleViewSelector view={view} onViewClick={onChangeView} />
       <ArticleList
         isLoading={isLoading}
         view={view}
         articles={articles}
       />
-    </div>
+    </Page>
+
   );
 };
 

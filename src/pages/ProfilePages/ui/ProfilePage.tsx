@@ -15,6 +15,7 @@ import { ProfileFormModel } from 'entities/Profile/model/types/ProfileFormModel'
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
 import { useMount } from 'shared/lib/hooks/useMount/useMount';
+import { Page } from 'shared/ui/Page/Page';
 
 const reducers: TReducerList = {
   profile: profileReducer,
@@ -53,20 +54,21 @@ const ProfilePage: FC<ProfilePagesProps> = memo((props: ProfilePagesProps) => {
   }, [dispatch, id]);
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={profileFormData || new ProfileFormModel()}
-      validationSchema={ProfileFormModel.validationSchema}
-      onSubmit={async () => {
-        console.log(1);
-        await onSave();
-      }}
-    >
-      <div className={classNames('', {}, [className])}>
-        <ProfilePageHeader />
-        <ProfileCard profileFormData={formData} isLoading={isLoading} error={error} readonly={readonly} />
-      </div>
-    </Formik>
+    <Page>
+      <Formik
+        enableReinitialize
+        initialValues={profileFormData || new ProfileFormModel()}
+        validationSchema={ProfileFormModel.validationSchema}
+        onSubmit={async () => {
+          await onSave();
+        }}
+      >
+        <div className={classNames('', {}, [className])}>
+          <ProfilePageHeader />
+          <ProfileCard profileFormData={formData} isLoading={isLoading} error={error} readonly={readonly} />
+        </div>
+      </Formik>
+    </Page>
   );
 });
 
