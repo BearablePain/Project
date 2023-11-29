@@ -4,8 +4,8 @@ import { IStateSchema } from 'app/providers/StoreProvider';
 import { IArticle } from 'entities/Article';
 import { IArticlesPageSchema } from 'pages/ArticlesPage/model/types/IArticlePageSchema';
 import { ArticleView } from 'entities/Article/model/types/article';
-import { ARCTICLES_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { limitBigDefault, limitSmallDefault } from 'shared/const/paginationLimit';
+import { ARTICLES_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
+import { LIMIT_PAGINATION_DEFAULT } from 'shared/const/paginationLimit';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 
 const articlesAdapter = createEntityAdapter<IArticle>({
@@ -30,16 +30,15 @@ const articlesPageSlice = createSlice({
   reducers: {
     setView: (state, action: PayloadAction<ArticleView>) => {
       state.view = action.payload;
-      localStorage.setItem(ARCTICLES_VIEW_LOCALSTORAGE_KEY, action.payload);
+      localStorage.setItem(ARTICLES_VIEW_LOCALSTORAGE_KEY, action.payload);
     },
     setPage: (state, action: PayloadAction<number>) => {
-      console.log(state, 'setPagesetPagesetPagesetPagesetPagesetPagesetPagesetPagesetPage');
       state.page = action.payload;
     },
     initState: (state) => {
-      const view = localStorage.getItem(ARCTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView;
+      const view = localStorage.getItem(ARTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView;
       state.view = view;
-      state.limit = view === ArticleView.BIG ? limitBigDefault : limitSmallDefault;
+      state.limit = view === ArticleView.BIG ? LIMIT_PAGINATION_DEFAULT.BIG : LIMIT_PAGINATION_DEFAULT.SMALL;
       state._inited = true;
     },
   },

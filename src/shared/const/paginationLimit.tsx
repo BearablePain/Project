@@ -1,2 +1,4 @@
-export const limitBigDefault = 4;
-export const limitSmallDefault = 9;
+export enum LIMIT_PAGINATION_DEFAULT {
+  BIG = 4,
+  SMALL = 9
+}

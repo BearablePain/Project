@@ -4,10 +4,10 @@ import { ArticleList, ArticleView, ArticleViewSelector } from 'entities/Article'
 import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMount } from 'shared/lib/hooks/useMount/useMount';
-import { getArticlesPageIsLoading, getArticlesPageView } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
 import { Page } from 'shared/ui/Page/Page';
-import { fetchNextArticlesPage } from 'pages/ArticlesPage/model/services/fetchNextArticlesPage/fetchNextArticlesPage';
-import { initArticlesPage } from 'pages/ArticlesPage/model/services/initArticlesPage/initArticlesPage';
+import { getArticlesPageIsLoading, getArticlesPageView } from '../../model/selectors/articlesPageSelectors';
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
 import { articlesPageActions, articlesPageReducer, getArticles } from '../../model/slices/articlesPageSlice';
 import cls from './ArticlesPage.module.scss';
 
@@ -22,7 +22,10 @@ interface ArticlesPageProps {
 export const ArticlesPage = (props: ArticlesPageProps) => {
   const { className } = props;
   const dispatch = useDispatch();
-  useDynamicReducerLoader({ reducers });
+  useDynamicReducerLoader({
+    reducers,
+    removeAfterUnmount: false,
+  });
   const articles = useSelector(getArticles.selectAll);
   const isLoading = useSelector(getArticlesPageIsLoading);
   const view = useSelector(getArticlesPageView);
@@ -31,7 +34,6 @@ export const ArticlesPage = (props: ArticlesPageProps) => {
   }, [dispatch]);
   const onLoadNextPart = useCallback(() => {
     dispatch(fetchNextArticlesPage());
-    console.log('next');
   }, [dispatch]);
 
   useMount(() => {

@@ -1,5 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { ArticleView, IArticle } from 'entities/Article';
+import { LIMIT_PAGINATION_DEFAULT } from 'shared/const/paginationLimit';
 
 export interface IArticlesPageSchema extends EntityState<IArticle> {
   isLoading?: boolean;
@@ -7,7 +8,7 @@ export interface IArticlesPageSchema extends EntityState<IArticle> {
   view: ArticleView;
   // pagination
   page: number;
-  limit?: number;
+  limit?: LIMIT_PAGINATION_DEFAULT;
   hasMore: boolean;
   _inited: boolean;
 }

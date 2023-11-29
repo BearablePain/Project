@@ -15,9 +15,12 @@
     // Для абсолютного импорта
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"],
+      "*": [
+        "./src/*"
+      ]
     },
     "strict": true,
+    "resolveJsonModule": true,
     // esModuleInterop позволяет работать с пакетами, которые используют
     // common js как с обычными пакета с помощью import (require() module.export) = common js
     // import Moment from 'moment';
@@ -34,7 +37,6 @@
     // import React from 'react';
     "allowSyntheticDefaultImports": true
   },
-
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
