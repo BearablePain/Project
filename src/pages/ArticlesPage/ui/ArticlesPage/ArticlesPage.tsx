@@ -1,10 +1,12 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { ArticleList, ArticleView, ArticleViewSelector } from 'entities/Article';
+import { ArticleList, ArticleView } from 'entities/Article';
 import { TReducerList, useDynamicReducerLoader } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import { Page } from 'shared/ui/Page/Page';
+import { ArticlesPageFilters } from 'pages/ArticlesPage/ui/ArticlesPageFilters/ArticlesPageFilters';
+import { useSearchParams } from 'react-router-dom';
 import { getArticlesPageIsLoading, getArticlesPageView } from '../../model/selectors/articlesPageSelectors';
 import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
 import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
@@ -32,12 +34,14 @@ export const ArticlesPage = (props: ArticlesPageProps) => {
   const onChangeView = useCallback((view: ArticleView) => {
     dispatch(articlesPageActions.setView(view));
   }, [dispatch]);
+  const [searchParams] = useSearchParams();
+
   const onLoadNextPart = useCallback(() => {
     dispatch(fetchNextArticlesPage());
   }, [dispatch]);
 
   useMount(() => {
-    dispatch(initArticlesPage());
+    dispatch(initArticlesPage(searchParams));
   });
 
   return (
@@ -45,11 +49,13 @@ export const ArticlesPage = (props: ArticlesPageProps) => {
       onScrollEnd={onLoadNextPart}
       className={classNames(cls.ArticlesPage, {}, [className])}
     >
-      <ArticleViewSelector view={view} onViewClick={onChangeView} />
+      <ArticlesPageFilters />
+
       <ArticleList
         isLoading={isLoading}
         view={view}
         articles={articles}
+        className={cls.list}
       />
     </Page>
 

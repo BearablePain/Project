@@ -3,9 +3,9 @@ import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolki
 import { IStateSchema } from 'app/providers/StoreProvider';
 import { IArticle } from 'entities/Article';
 import { IArticlesPageSchema } from 'pages/ArticlesPage/model/types/IArticlePageSchema';
-import { ArticleView } from 'entities/Article/model/types/article';
+import { ArticleSortField, ArticleType, ArticleView } from 'entities/Article/model/types/article';
 import { ARTICLES_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { LIMIT_PAGINATION_DEFAULT } from 'shared/const/paginationLimit';
+import { SortOrder } from 'shared/types/SortOrder';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 
 const articlesAdapter = createEntityAdapter<IArticle>({
@@ -22,10 +22,15 @@ const articlesPageSlice = createSlice({
     error: undefined,
     ids: [],
     entities: {},
-    page: 1,
     view: ArticleView.SMALL,
+    page: 1,
     hasMore: true,
     _inited: false,
+    limit: 9,
+    sort: ArticleSortField.CREATED,
+    search: '',
+    order: 'asc',
+    type: ArticleType.ALL,
   }),
   reducers: {
     setView: (state, action: PayloadAction<ArticleView>) => {
@@ -35,26 +40,47 @@ const articlesPageSlice = createSlice({
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
     },
+    setOrder: (state, action: PayloadAction<SortOrder>) => {
+      state.order = action.payload;
+    },
+    setSort: (state, action: PayloadAction<ArticleSortField>) => {
+      state.sort = action.payload;
+    },
+    setType: (state, action: PayloadAction<ArticleType>) => {
+      state.type = action.payload;
+    },
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload;
+    },
     initState: (state) => {
       const view = localStorage.getItem(ARTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView;
       state.view = view;
-      state.limit = view === ArticleView.BIG ? LIMIT_PAGINATION_DEFAULT.BIG : LIMIT_PAGINATION_DEFAULT.SMALL;
+      state.limit = view === ArticleView.BIG ? 4 : 9;
       state._inited = true;
     },
   },
+
   extraReducers: (builder) => {
     builder
-      .addCase(fetchArticlesList.pending, (state) => {
+      .addCase(fetchArticlesList.pending, (state, action) => {
         state.error = undefined;
         state.isLoading = true;
+        if (action.meta.arg.replace) {
+          articlesAdapter.removeAll(state);
+        }
       })
       .addCase(fetchArticlesList.fulfilled, (
         state,
-        action: PayloadAction<IArticle[]>,
+        action,
       ) => {
         state.isLoading = false;
-        articlesAdapter.setMany(state, action.payload);
-        state.hasMore = action.payload.length > 0;
+        articlesAdapter.addMany(state, action.payload);
+        state.hasMore = action.payload.length >= state.limit;
+        if (action.meta.arg.replace) {
+          articlesAdapter.setAll(state, action.payload);
+        } else {
+          articlesAdapter.addMany(state, action.payload);
+        }
       })
       .addCase(fetchArticlesList.rejected, (state, action) => {
         state.isLoading = false;

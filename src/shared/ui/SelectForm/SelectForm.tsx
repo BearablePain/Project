@@ -3,7 +3,7 @@ import React, { FC, memo, useCallback } from 'react';
 import { Select, SelectProps } from 'shared/ui/Select/Select';
 import { ErrorFormMessage } from 'shared/ui/ErrorFormMessage/ErrorFormMessage';
 
-interface SelectFormProps extends SelectProps {
+interface SelectFormProps extends SelectProps<any> {
   name: string;
   label?: string;
   onChange?: (value: string) => void;

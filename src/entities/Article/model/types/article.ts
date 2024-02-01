@@ -1,5 +1,11 @@
 import { IUser } from 'entities/User';
 
+export enum ArticleSortField {
+  VIEWS = 'views',
+  TITLE = 'title',
+  CREATED = 'createdAt',
+}
+
 export const enum ArticleView {
   BIG = 'BIG',
   SMALL = 'SMALL',
@@ -38,7 +44,9 @@ export type ArticleBlock = IArticleCodeBlock | IArticleImageBlock | IArticleText
 export const enum ArticleType {
   IT = 'IT',
   SCIENCE = 'SCIENCE',
-  ECONOMICS = 'ECONOMICS'
+  ECONOMICS = 'ECONOMICS',
+  ALL = 'ALL'
+
 }
 
 export interface IArticle {

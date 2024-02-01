@@ -1,14 +1,23 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { ArticleView, IArticle } from 'entities/Article';
-import { LIMIT_PAGINATION_DEFAULT } from 'shared/const/paginationLimit';
+import {
+  ArticleSortField, ArticleType, ArticleView, IArticle,
+} from 'entities/Article';
+import { SortOrder } from 'shared/types/SortOrder';
 
 export interface IArticlesPageSchema extends EntityState<IArticle> {
   isLoading?: boolean;
   error?: string;
-  view: ArticleView;
+
   // pagination
   page: number;
-  limit?: LIMIT_PAGINATION_DEFAULT;
+  limit: number;
   hasMore: boolean;
+  // filters
+  view: ArticleView;
+  order: SortOrder;
+  sort: ArticleSortField;
+  search: string;
+  type: ArticleType;
+
   _inited: boolean;
 }

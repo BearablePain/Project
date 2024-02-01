@@ -15,7 +15,7 @@ export interface InputProps extends HTMLInputProps {
   readonly?: boolean;
 }
 
-const Input: FC<InputProps> = memo((props: InputProps) => {
+export const Input: FC<InputProps> = memo((props: InputProps) => {
   const {
     className,
     value,

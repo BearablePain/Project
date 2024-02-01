@@ -127,6 +127,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
           value={profileFormData?.currency}
           onChange={onChangeCurrency}
           readonly={readonly}
+          name="currency"
         />
         <CountrySelect
           className={cls.input}

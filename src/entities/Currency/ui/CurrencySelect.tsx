@@ -2,9 +2,10 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import SelectForm from 'shared/ui/SelectForm/SelectForm';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
+import { SelectProps } from 'shared/ui/Select/Select';
 import { Currency } from '../model/types/currency';
 
-interface CurrencySelectProps {
+interface CurrencySelectProps extends SelectProps<Currency> {
   className?: string;
   value?: Currency;
   onChange?: (value: Currency) => void;
