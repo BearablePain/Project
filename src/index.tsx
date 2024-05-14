@@ -1,5 +1,5 @@
 import { render } from 'react-dom';
-import React from 'React';
+import * as React from 'react';
 import { StoreProvider } from 'app/providers/StoreProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'app/providers/ErrorBoundary';
