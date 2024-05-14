@@ -3,11 +3,12 @@ import { Provider } from 'react-redux';
 import { IStateSchema } from 'app/providers/StoreProvider/config/IStateSchema';
 import { DeepPartial, ReducersMapObject } from '@reduxjs/toolkit';
 import { createReduxStore } from 'app/providers/StoreProvider';
+import { TReducerList } from 'shared/lib/hooks/useDynamicLoader/useDynamicReducerLoader';
 
 interface StoreProviderProps {
   children?: ReactNode;
   initialState?: DeepPartial<IStateSchema>;
-  asyncReducers?: DeepPartial<ReducersMapObject<IStateSchema>>;
+  asyncReducers?: TReducerList;
 }
 
 export const StoreProvider = (props: StoreProviderProps) => {

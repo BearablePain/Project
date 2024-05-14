@@ -7,10 +7,10 @@ import {
 import { IProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { IArticleDetailsSchema } from 'entities/Article';
-import { IArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 import { IAddCommentFormSchema } from 'features/addCommentForm/model/types/IAddCommentFormSchema';
 import { IArticlesPageSchema } from 'pages/ArticlesPage/model/types/IArticlePageSchema';
 import { IUISchema } from 'features/UI/model/types/IUISchema';
+import { IArticleDetailsPageSchema } from 'pages/ArticleDetailsPage/model/types/IArticleDetailsPageSchema';
 
 export interface IStateSchema {
   counter: ICounterSchema;
@@ -20,9 +20,9 @@ export interface IStateSchema {
   loginForm?: ILoginSchema;
   profile?: IProfileSchema;
   articleDetails?: IArticleDetailsSchema;
-  articleDetailsComments?: IArticleDetailsCommentsSchema;
   addCommentForm?: IAddCommentFormSchema;
   articlesPage?: IArticlesPageSchema;
+  articleDetailsPage?: IArticleDetailsPageSchema;
 }
 
 export type TStateSchemaKey = keyof IStateSchema;

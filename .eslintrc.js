@@ -43,7 +43,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'i18next/no-literal-string': ['error', {
       markupOnly: true,
-      ignoreAttribute: ['data-testid', 'to', 'name', 'component'], // игнорируем атрибуты для дивов
+      ignoreAttribute: ['data-testid', 'to', 'name', 'component', 'target'], // игнорируем атрибуты для дивов
     },
     ],
 
