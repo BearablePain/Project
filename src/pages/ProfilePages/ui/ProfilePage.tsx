@@ -15,7 +15,7 @@ import { ProfileFormModel } from 'entities/Profile/model/types/ProfileFormModel'
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
 import { useMount } from 'shared/lib/hooks/useMount/useMount';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 
 const reducers: TReducerList = {
   profile: profileReducer,

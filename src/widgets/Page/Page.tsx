@@ -8,8 +8,8 @@ import { getUIScrollByPath, uiActions } from 'features/UI';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IStateSchema } from 'app/providers/StoreProvider';
-import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import { useThrottle } from 'shared/lib/hooks/useTrottle/useThrottle';
+import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import cls from './Page.module.scss';
 
 interface PageProps {
@@ -17,6 +17,8 @@ interface PageProps {
   children: ReactNode;
   onScrollEnd?: () => void;
 }
+
+export const PAGE_ID = 'PAGE_ID';
 
 export const Page = memo((props: PageProps) => {
   const {
@@ -31,6 +33,7 @@ export const Page = memo((props: PageProps) => {
   const scrollPosition = useSelector(
     (state: IStateSchema) => getUIScrollByPath(state, pathname),
   );
+
   useInfiniteScroll({
     triggerRef,
     wrapperRef,
@@ -40,6 +43,7 @@ export const Page = memo((props: PageProps) => {
   useMount(() => {
     wrapperRef.current.scrollTop = scrollPosition;
   });
+
   const onScroll = useThrottle((e: UIEvent<HTMLDivElement>) => {
     dispatch(uiActions.setScrollPosition({
       position: e.currentTarget.scrollTop,
@@ -52,9 +56,10 @@ export const Page = memo((props: PageProps) => {
       ref={wrapperRef}
       className={classNames(cls.Page, {}, [className])}
       onScroll={onScroll}
+      id={PAGE_ID}
     >
       {children}
-      {onScrollEnd && <div className={cls.trigger} ref={triggerRef} />}
+      {onScrollEnd ? <div className={cls.trigger} ref={triggerRef} /> : null}
     </section>
   );
 });

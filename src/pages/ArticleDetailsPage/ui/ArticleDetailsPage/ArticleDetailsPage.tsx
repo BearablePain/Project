@@ -10,7 +10,7 @@ import { useMount } from 'shared/lib/hooks/useMount/useMount';
 import AddCommentForm from 'features/addCommentForm/ui/AddCommentForm';
 import { useTAddNs } from 'shared/lib/i18/hooks/useTAddNs';
 import { getArticleCommentsIsLoading } from 'pages/ArticleDetailsPage/model/selectors/articleDetailComments';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 import { articleDetailsPageReducer } from 'pages/ArticleDetailsPage/model/slices/articleDetailsPageReducer';
 import { getArticleRecommendations } from 'pages/ArticleDetailsPage/model/slices/articleDetailsPageRecommendationsSlice.ts';
 import { getArticleRecommendationsIsLoading } from 'pages/ArticleDetailsPage/model/selectors/recommendations';
